@@ -5,143 +5,273 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TST Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root{--burg:#6B1F2A;--burg-mid:#8B2635;--burg-lt:#A83845;--gold:#C9A96E;--cream:#F2E8D9;--nb:#0D0608;--ink:#1A0A0E;--wg:#6B5B5E;--tl:#D4C4B5;--panel:#120508;--pb:rgba(107,31,42,0.25);--ibg:rgba(13,6,8,0.7);--green:#7BC47F;--red:#C47B7B;--sw:240px;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html,body{height:100%;}
-body{background:var(--nb);color:var(--cream);font-family:"DM Mono",monospace;font-size:16px;line-height:1.45;overflow-x:hidden;}
+/* ── ORIGINAL SITE VARS ── */
+:root{
+  --burg:#6B1F2A;--burg-mid:#8B2635;--burg-lt:#A83845;
+  --gold:#C9A96E;--cream:#F2E8D9;--nb:#0D0608;--ink:#1A0A0E;
+  --wg:#6B5B5E;--tl:#D4C4B5;--panel:#120508;--pb:rgba(107,31,42,0.25);
+  --ibg:rgba(13,6,8,0.7);--green:#7BC47F;--red:#C47B7B;--sw:240px;
 
-#loginScreen{position:fixed;inset:0;background:var(--nb);display:flex;align-items:center;justify-content:center;z-index:1000;}
-#loginScreen::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(107,31,42,0.18) 0%,transparent 70%);pointer-events:none;}
-.lbox{background:var(--panel);border:1px solid var(--pb);padding:3rem;width:100%;max-width:380px;position:relative;z-index:1;}
-.l-logo{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2rem;color:var(--gold);font-weight:300;margin-bottom:0.2rem;}
-.l-sub{font-size:0.5rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--wg);margin-bottom:2.5rem;}
-.l-label{font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--burg-lt);display:block;margin-bottom:0.4rem;}
-.l-input{width:100%;background:var(--ibg);border:1px solid var(--pb);color:var(--cream);font-family:"DM Mono",monospace;font-size:0.85rem;padding:0.85rem 1rem;outline:none;margin-bottom:1.5rem;transition:border-color 0.3s;}
-.l-input:focus{border-color:var(--gold);}
-.l-btn{width:100%;background:var(--burg);color:var(--cream);border:none;font-family:"DM Mono",monospace;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;padding:1rem;cursor:pointer;transition:background 0.3s;}
-.l-btn:hover{background:var(--burg-mid);}
-.l-err{font-size:0.5rem;color:var(--red);margin-top:0.75rem;display:none;text-align:center;letter-spacing:0.1em;}
-.l-hint{font-size:0.5rem;color:var(--wg);margin-top:1.25rem;text-align:center;line-height:1.7;}
+/* ── HUB VARS (rust/parchment palette) ── */
+–h-ink:#0d0b0a;–h-card:#181614;–h-card2:#211f1d;
+–h-rust:#c4622d;–h-gold:#c9a84c;–h-parch:#f5f0e8;
+–h-bone:#ede8de;–h-muted:#7a7370;–h-slate:#2a2825;
+–h-green:#4a7c6b;–h-purple:#7b3fa0;–h-pink:#b5507a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(–nb);color:var(–cream);font-family:“DM Mono”,monospace;font-size:16px;line-height:1.45;overflow-x:hidden;}
+
+/* ── LOGIN ── */
+#loginScreen{position:fixed;inset:0;background:var(–nb);display:flex;align-items:center;justify-content:center;z-index:1000;}
+#loginScreen::before{content:””;position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(107,31,42,0.18) 0%,transparent 70%);pointer-events:none;}
+.lbox{background:var(–panel);border:1px solid var(–pb);padding:3rem;width:100%;max-width:380px;position:relative;z-index:1;}
+.l-logo{font-family:“Cormorant Garamond”,serif;font-style:italic;font-size:2rem;color:var(–gold);font-weight:300;margin-bottom:0.2rem;}
+.l-sub{font-size:0.5rem;letter-spacing:0.4em;text-transform:uppercase;color:var(–wg);margin-bottom:2.5rem;}
+.l-label{font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(–burg-lt);display:block;margin-bottom:0.4rem;}
+.l-input{width:100%;background:var(–ibg);border:1px solid var(–pb);color:var(–cream);font-family:“DM Mono”,monospace;font-size:0.85rem;padding:0.85rem 1rem;outline:none;margin-bottom:1.5rem;transition:border-color 0.3s;}
+.l-input:focus{border-color:var(–gold);}
+.l-btn{width:100%;background:var(–burg);color:var(–cream);border:none;font-family:“DM Mono”,monospace;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;padding:1rem;cursor:pointer;transition:background 0.3s;}
+.l-btn:hover{background:var(–burg-mid);}
+.l-err{font-size:0.5rem;color:var(–red);margin-top:0.75rem;display:none;text-align:center;letter-spacing:0.1em;}
+.l-hint{font-size:0.5rem;color:var(–wg);margin-top:1.25rem;text-align:center;line-height:1.7;}
 
 a{color:inherit;text-decoration:none;}
 #adminShell{display:none;height:100vh;width:100%;position:relative;}
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--panel);border-right:1px solid var(--pb);display:flex;flex-direction:column;z-index:50;overflow-y:auto;}
-.sb-head{padding:2rem 1.5rem 1.5rem;border-bottom:1px solid var(--pb);}
-.sb-logo{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.4rem;color:var(--gold);font-weight:300;}
-.sb-tag{font-size:0.45rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--wg);margin-top:0.2rem;}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(–sw);background:var(–panel);border-right:1px solid var(–pb);display:flex;flex-direction:column;z-index:50;overflow-y:auto;}
+.sb-head{padding:2rem 1.5rem 1.5rem;border-bottom:1px solid var(–pb);}
+.sb-logo{font-family:“Cormorant Garamond”,serif;font-style:italic;font-size:1.4rem;color:var(–gold);font-weight:300;}
+.sb-tag{font-size:0.45rem;letter-spacing:0.35em;text-transform:uppercase;color:var(–wg);margin-top:0.2rem;}
 .sb-nav{padding:1rem 0;flex:1;}
 .nav-sec{font-size:0.4rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(107,31,42,0.6);padding:1rem 1.5rem 0.35rem;}
-.ni{display:flex;align-items:center;gap:0.7rem;padding:0.8rem 1.5rem;cursor:pointer;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--wg);transition:all 0.2s;border-left:2px solid transparent;}
-.ni:hover{color:var(--tl);background:rgba(107,31,42,0.1);}
-.ni.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,169,110,0.05);}
-.sb-foot{padding:1.5rem;border-top:1px solid var(--pb);display:flex;flex-direction:column;gap:0.7rem;}
-.sb-link{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--wg);text-decoration:none;transition:color 0.2s;}
-.sb-link:hover{color:var(--gold);}
-.lo-btn{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(196,123,123,0.65);background:none;border:none;cursor:pointer;text-align:left;padding:0;font-family:"DM Mono",monospace;transition:color 0.2s;}
-.lo-btn:hover{color:var(--red);}
+.nav-sec.hub-sec{color:rgba(196,98,45,0.5);}
+.ni{display:flex;align-items:center;gap:0.7rem;padding:0.8rem 1.5rem;cursor:pointer;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–wg);transition:all 0.2s;border-left:2px solid transparent;}
+.ni:hover{color:var(–tl);background:rgba(107,31,42,0.1);}
+.ni.active{color:var(–gold);border-left-color:var(–gold);background:rgba(201,169,110,0.05);}
+.ni.hub-ni:hover{color:#e07a46;background:rgba(196,98,45,0.07);}
+.ni.hub-ni.active{color:var(–h-gold);border-left-color:var(–h-rust);background:rgba(196,98,45,0.06);}
+.sb-divider{height:1px;background:var(–pb);margin:0.5rem 1.5rem;}
+.sb-foot{padding:1.5rem;border-top:1px solid var(–pb);display:flex;flex-direction:column;gap:0.7rem;}
+.sb-link{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:var(–wg);text-decoration:none;transition:color 0.2s;}
+.sb-link:hover{color:var(–gold);}
+.lo-btn{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(196,123,123,0.65);background:none;border:none;cursor:pointer;text-align:left;padding:0;font-family:“DM Mono”,monospace;transition:color 0.2s;}
+.lo-btn:hover{color:var(–red);}
 
-.main{margin-left:var(--sw);width:calc(100% - var(--sw));min-height:100vh;overflow-y:auto;background:var(--nb);}
-.topbar{position:sticky;top:0;z-index:10;background:rgba(13,6,8,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--pb);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
-.pg-title{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.7rem;color:var(--cream);font-weight:300;}
-.sv-btn{background:var(--burg);color:var(--cream) !important;border:none;font-family:"DM Mono",monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.8rem 1.4rem;cursor:pointer;transition:background 0.3s;-webkit-appearance:none;appearance:none;}
-.sv-btn:hover{background:var(--burg-mid);}
-.sv-btn.saved{background:rgba(123,196,127,0.25);color:var(--green);border:1px solid rgba(123,196,127,0.3);}
+/* ── MAIN ── */
+.main{margin-left:var(–sw);width:calc(100% - var(–sw));min-height:100vh;overflow-y:auto;background:var(–nb);}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(13,6,8,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(–pb);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.pg-title{font-family:“Cormorant Garamond”,serif;font-style:italic;font-size:1.7rem;color:var(–cream);font-weight:300;}
+.sv-btn{background:var(–burg);color:var(–cream) !important;border:none;font-family:“DM Mono”,monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.8rem 1.4rem;cursor:pointer;transition:background 0.3s;-webkit-appearance:none;appearance:none;}
+.sv-btn:hover{background:var(–burg-mid);}
+.sv-btn.saved{background:rgba(123,196,127,0.25);color:var(–green);border:1px solid rgba(123,196,127,0.3);}
 .mc{padding:2.5rem;max-width:1280px;}
-
 .panel{display:none;}.panel.active{display:block;}
 
-.card{background:var(--panel);border:1px solid var(--pb);padding:2rem;margin-bottom:1.5rem;}
-.c-title{font-family:"Cormorant Garamond",serif;font-size:1.45rem;color:var(--cream);margin-bottom:0.2rem;font-weight:300;}
-.c-sub{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--wg);margin-bottom:1.5rem;}
-
+/* ── ORIGINAL SITE STYLES ── */
+.card{background:var(–panel);border:1px solid var(–pb);padding:2rem;margin-bottom:1.5rem;}
+.c-title{font-family:“Cormorant Garamond”,serif;font-size:1.45rem;color:var(–cream);margin-bottom:0.2rem;font-weight:300;}
+.c-sub{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(–wg);margin-bottom:1.5rem;}
 .fg{margin-bottom:1.2rem;}.fg:last-child{margin-bottom:0;}
-.fl{font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--burg-lt);display:block;margin-bottom:0.45rem;}
-.fh{font-size:0.58rem;letter-spacing:0.04em;color:var(--wg);margin-top:0.3rem;line-height:1.65;}
-.fi,.ft,.fs{width:100%;background:var(--ibg);border:1px solid var(--pb);color:var(--cream);font-family:"DM Mono",monospace;font-size:0.86rem;padding:0.8rem 0.9rem;outline:none;transition:border-color 0.3s;letter-spacing:0.02em;}
-.fi:focus,.ft:focus,.fs:focus{border-color:var(--gold);}
+.fl{font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:var(–burg-lt);display:block;margin-bottom:0.45rem;}
+.fh{font-size:0.58rem;letter-spacing:0.04em;color:var(–wg);margin-top:0.3rem;line-height:1.65;}
+.fi,.ft,.fs{width:100%;background:var(–ibg);border:1px solid var(–pb);color:var(–cream);font-family:“DM Mono”,monospace;font-size:0.86rem;padding:0.8rem 0.9rem;outline:none;transition:border-color 0.3s;letter-spacing:0.02em;}
+.fi:focus,.ft:focus,.fs:focus{border-color:var(–gold);}
 .ft{resize:vertical;min-height:75px;line-height:1.6;}
-.fs option{background:var(--ink);}
+.fs option{background:var(–ink);}
 .fr{display:grid;gap:1rem;}.fr.c2{grid-template-columns:1fr 1fr;}.fr.c3{grid-template-columns:1fr 1fr 1fr;}
-
-.tr{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--pb);}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(–pb);}
 .tr:last-child{border-bottom:none;padding-bottom:0;}
-.tl{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--tl);}
-.td{font-size:0.58rem;letter-spacing:0.04em;color:var(--wg);margin-top:0.22rem;line-height:1.6;}
 .tog{position:relative;width:42px;height:22px;flex-shrink:0;}
 .tog input{opacity:0;width:0;height:0;}
-.tog-sl{position:absolute;inset:0;cursor:pointer;background:rgba(107,31,42,0.35);border:1px solid var(--pb);transition:0.3s;border-radius:22px;}
-.tog-sl::before{content:"";position:absolute;height:14px;width:14px;left:3px;top:3px;background:var(--wg);border-radius:50%;transition:0.3s;}
-.tog input:checked+.tog-sl{background:rgba(107,31,42,0.7);border-color:var(--burg-mid);}
-.tog input:checked+.tog-sl::before{transform:translateX(20px);background:var(--gold);}
-
+.tog-sl{position:absolute;inset:0;cursor:pointer;background:rgba(107,31,42,0.35);border:1px solid var(–pb);transition:0.3s;border-radius:22px;}
+.tog-sl::before{content:””;position:absolute;height:14px;width:14px;left:3px;top:3px;background:var(–wg);border-radius:50%;transition:0.3s;}
+.tog input:checked+.tog-sl{background:rgba(107,31,42,0.7);border-color:var(–burg-mid);}
+.tog input:checked+.tog-sl::before{transform:translateX(20px);background:var(–gold);}
 .cr{display:flex;align-items:center;gap:1rem;}
-.cp{width:36px;height:36px;border:1px solid var(--pb);border-radius:3px;flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;}
-.cp input[type="color"]{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);opacity:0;cursor:pointer;border:none;padding:0;}
-.chex{font-size:0.62rem;color:var(--tl);background:var(--ibg);border:1px solid var(--pb);padding:0.5rem 0.7rem;font-family:"DM Mono",monospace;width:105px;outline:none;transition:border-color 0.3s;}
-.chex:focus{border-color:var(--gold);}
-
+.cp{width:36px;height:36px;border:1px solid var(–pb);border-radius:3px;flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;}
+.cp input[type=“color”]{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);opacity:0;cursor:pointer;border:none;padding:0;}
+.chex{font-size:0.62rem;color:var(–tl);background:var(–ibg);border:1px solid var(–pb);padding:0.5rem 0.7rem;font-family:“DM Mono”,monospace;width:105px;outline:none;transition:border-color 0.3s;}
+.chex:focus{border-color:var(–gold);}
 .pl{display:flex;flex-direction:column;gap:1rem;}
-.pc{background:var(--ibg);border:1px solid var(--pb);padding:1.2rem;display:grid;grid-template-columns:80px 1fr auto;gap:1.2rem;align-items:start;transition:border-color 0.2s;}
+.pc{background:var(–ibg);border:1px solid var(–pb);padding:1.2rem;display:grid;grid-template-columns:80px 1fr auto;gap:1.2rem;align-items:start;transition:border-color 0.2s;}
 .pc:hover{border-color:rgba(107,31,42,0.5);}
 .pt{width:80px;height:80px;background:#3D0A12;overflow:hidden;flex-shrink:0;}
 .pt img{width:100%;height:100%;object-fit:cover;}
-.ptp{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.5rem;color:rgba(201,169,110,0.18);}
+.ptp{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:“Cormorant Garamond”,serif;font-style:italic;font-size:1.5rem;color:rgba(201,169,110,0.18);}
 .pf{display:flex;flex-direction:column;gap:0.6rem;}
 .pf .fr{gap:0.6rem;}
 .pa{display:flex;flex-direction:column;gap:0.45rem;align-items:flex-end;}
-.ab{font-family:"DM Mono",monospace;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;background:none;border:1px solid var(--pb);color:var(--wg);padding:0.52rem 0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-.ab:hover{border-color:var(--burg-lt);color:var(--tl);}
-.ab.danger:hover{border-color:var(--red);color:var(--red);}
+.ab{font-family:“DM Mono”,monospace;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;background:none;border:1px solid var(–pb);color:var(–wg);padding:0.52rem 0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.ab:hover{border-color:var(–burg-lt);color:var(–tl);}
+.ab.danger:hover{border-color:var(–red);color:var(–red);}
 .avb{font-size:0.42rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.22rem 0.45rem;border:1px solid;}
-.avb.yes{color:var(--green);border-color:rgba(123,196,127,0.3);background:rgba(123,196,127,0.07);}
-.avb.no{color:var(--wg);border-color:var(--pb);}
-.add-p-btn{width:100%;background:none;border:1px dashed rgba(107,31,42,0.4);color:var(--wg);font-family:"DM Mono",monospace;font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;padding:1.2rem;cursor:pointer;transition:all 0.3s;margin-top:1rem;}
-.add-p-btn:hover{border-color:var(--burg-mid);color:var(--tl);background:rgba(107,31,42,0.05);}
-
+.avb.yes{color:var(–green);border-color:rgba(123,196,127,0.3);background:rgba(123,196,127,0.07);}
+.avb.no{color:var(–wg);border-color:var(–pb);}
+.add-p-btn{width:100%;background:none;border:1px dashed rgba(107,31,42,0.4);color:var(–wg);font-family:“DM Mono”,monospace;font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;padding:1.2rem;cursor:pointer;transition:all 0.3s;margin-top:1rem;}
+.add-p-btn:hover{border-color:var(–burg-mid);color:var(–tl);background:rgba(107,31,42,0.05);}
 .tl-list{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1rem;}
 .tl-row{display:grid;grid-template-columns:1fr 1fr auto;gap:0.7rem;align-items:center;}
-.tl-rm{background:none;border:1px solid var(--pb);color:var(--wg);font-size:0.85rem;width:32px;height:32px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.tl-rm:hover{border-color:var(--red);color:var(--red);}
-.add-t-btn{background:none;border:1px dashed rgba(107,31,42,0.28);color:var(--wg);font-family:"DM Mono",monospace;font-size:0.47rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1rem;cursor:pointer;transition:all 0.2s;}
-.add-t-btn:hover{border-color:var(--burg-mid);color:var(--tl);}
-
+.tl-rm{background:none;border:1px solid var(–pb);color:var(–wg);font-size:0.85rem;width:32px;height:32px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tl-rm:hover{border-color:var(–red);color:var(–red);}
+.add-t-btn{background:none;border:1px dashed rgba(107,31,42,0.28);color:var(–wg);font-family:“DM Mono”,monospace;font-size:0.47rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1rem;cursor:pointer;transition:all 0.2s;}
+.add-t-btn:hover{border-color:var(–burg-mid);color:var(–tl);}
 .sr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-bottom:2rem;}
-.sc{background:var(--panel);border:1px solid var(--pb);padding:1.4rem;min-width:0;}
-.sn{font-family:"Cormorant Garamond",serif;font-size:3rem;color:var(--gold);font-weight:300;line-height:1;}
-.sl{font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--wg);margin-top:0.45rem;}
-
+.sc{background:var(–panel);border:1px solid var(–pb);padding:1.4rem;min-width:0;}
+.sn{font-family:“Cormorant Garamond”,serif;font-size:3rem;color:var(–gold);font-weight:300;line-height:1;}
+.sl{font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:var(–wg);margin-top:0.45rem;}
 .dash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;}
-.dash-box{background:var(--ibg);border:1px solid var(--pb);padding:1.25rem;min-width:0;}
-.dash-box-title{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--burg-lt);margin-bottom:0.7rem;}
-.dash-box-copy{font-size:0.66rem;line-height:1.9;color:var(--wg);}
-
+.dash-box{background:var(–ibg);border:1px solid var(–pb);padding:1.25rem;min-width:0;}
+.dash-box-title{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(–burg-lt);margin-bottom:0.7rem;}
+.dash-box-copy{font-size:0.66rem;line-height:1.9;color:var(–wg);}
 .sl-list{display:flex;flex-direction:column;gap:0.7rem;}
 .sl-row{display:grid;grid-template-columns:50px 1fr 1fr;gap:0.7rem;align-items:start;}
-.sl-num{font-size:0.5rem;letter-spacing:0.18em;color:var(--burg-lt);padding-top:0.65rem;}
-
-.pp-img{width:100px;height:130px;background:#3D0A12;border:1px solid var(--pb);overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2rem;color:rgba(201,169,110,0.13);flex-shrink:0;}
+.sl-num{font-size:0.5rem;letter-spacing:0.18em;color:var(–burg-lt);padding-top:0.65rem;}
+.pp-img{width:100px;height:130px;background:#3D0A12;border:1px solid var(–pb);overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:“Cormorant Garamond”,serif;font-style:italic;font-size:2rem;color:rgba(201,169,110,0.13);flex-shrink:0;}
 .pp-img img{width:100%;height:100%;object-fit:cover;}
-
 .bk-acts{display:flex;gap:1rem;flex-wrap:wrap;}
-.bk-btn{font-family:"DM Mono",monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.7rem 1.4rem;cursor:pointer;transition:all 0.3s;border:1px solid;}
-.bk-btn.exp{background:none;color:var(--gold);border-color:rgba(201,169,110,0.28);}
+.bk-btn{font-family:“DM Mono”,monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.7rem 1.4rem;cursor:pointer;transition:all 0.3s;border:1px solid;}
+.bk-btn.exp{background:none;color:var(–gold);border-color:rgba(201,169,110,0.28);}
 .bk-btn.exp:hover{background:rgba(201,169,110,0.07);}
-.bk-btn.imp{background:none;color:var(--tl);border-color:var(--pb);}
-.bk-btn.imp:hover{border-color:var(--wg);}
-.bk-btn.rst{background:none;color:var(--red);border-color:rgba(196,123,123,0.28);}
+.bk-btn.imp{background:none;color:var(–tl);border-color:var(–pb);}
+.bk-btn.imp:hover{border-color:var(–wg);}
+.bk-btn.rst{background:none;color:var(–red);border-color:rgba(196,123,123,0.28);}
 .bk-btn.rst:hover{background:rgba(196,123,123,0.07);}
 #importFile{display:none;}
+.tl-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–tl);}
+.td{font-size:0.58rem;letter-spacing:0.04em;color:var(–wg);margin-top:0.22rem;line-height:1.6;}
 
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--panel);border:1px solid var(--pb);padding:1rem 1.5rem;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--tl);z-index:9999;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;}
+/* ══════════════════════════════════════════
+HUB STYLES — rust/parchment palette
+══════════════════════════════════════════ */
+.h-wrap{background:var(–h-ink);min-height:calc(100vh - 80px);margin:-2.5rem;padding:2.5rem;}
+
+/* Header banner inside hub panels */
+.h-banner{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #2a2725;}
+.h-eyebrow{font-family:“DM Mono”,monospace;font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:var(–h-gold);margin-bottom:0.5rem;}
+.h-title{font-family:“Playfair Display”,serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(–h-parch);line-height:1.1;}
+.h-title em{font-style:italic;color:var(–h-rust);}
+.h-sub{font-size:0.75rem;color:var(–h-muted);margin-top:0.4rem;line-height:1.6;font-family:“DM Sans”,sans-serif;}
+
+/* Stats row */
+.h-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+.h-stat{display:flex;flex-direction:column;gap:3px;}
+.h-stat-n{font-family:“Playfair Display”,serif;font-size:2rem;font-weight:700;color:var(–h-gold);line-height:1;}
+.h-stat-l{font-family:“DM Mono”,monospace;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:var(–h-muted);}
+
+/* Filter bar */
+.h-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:2rem;}
+.h-filter-label{font-family:“DM Mono”,monospace;font-size:0.45rem;letter-spacing:0.18em;text-transform:uppercase;color:var(–h-muted);margin-right:4px;}
+.h-fb{background:none;border:1px solid #2e2b28;color:var(–h-muted);font-family:“DM Mono”,monospace;font-size:0.48rem;letter-spacing:0.1em;padding:4px 12px;cursor:pointer;transition:all 0.15s;text-transform:uppercase;border-radius:1px;}
+.h-fb:hover{border-color:var(–h-muted);color:var(–h-bone);}
+.h-fb.hf-active[data-hcat=“all”]{background:var(–h-gold);border-color:var(–h-gold);color:var(–h-ink);}
+.h-fb.hf-active[data-hcat=“competition”]{background:#c4622d;border-color:#c4622d;color:#fff;}
+.h-fb.hf-active[data-hcat=“residency”]{background:#4a7c6b;border-color:#4a7c6b;color:#fff;}
+.h-fb.hf-active[data-hcat=“grant”]{background:#8a6e2f;border-color:#8a6e2f;color:#fff;}
+.h-fb.hf-active[data-hcat=“black”]{background:#7b3fa0;border-color:#7b3fa0;color:#fff;}
+.h-fb.hf-active[data-hcat=“queer”]{background:#b5507a;border-color:#b5507a;color:#fff;}
+.h-fb.hf-active[data-hcat=“free”]{background:#2e6e4e;border-color:#2e6e4e;color:#fff;}
+.h-fb.hf-active[data-hcat=“archived”]{background:#3a3530;border-color:#4a4540;color:#a09890;}
+
+/* Opportunity cards */
+.h-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2px;}
+.opp-card{background:var(–h-card);padding:20px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:background 0.15s;}
+.opp-card::before{content:””;position:absolute;top:0;left:0;width:3px;height:100%;background:var(–oc-accent,var(–h-rust));opacity:0.7;}
+.opp-card:hover{background:var(–h-card2);}
+.opp-card.oc-archived{opacity:0.45;}
+.opp-card.oc-hidden{display:none;}
+.opp-card.oc-awarded{background:#141a13;}
+.opp-card.oc-awarded::before{background:#5cb88a;}
+
+.oc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.oc-tags{display:flex;flex-wrap:wrap;gap:3px;}
+.oc-prize{font-family:“DM Mono”,monospace;font-size:0.55rem;color:var(–h-gold);white-space:nowrap;flex-shrink:0;}
+
+/* tag styles */
+.htag{font-family:“DM Mono”,monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:1px;}
+.ht-competition{background:rgba(196,98,45,0.14);color:#e07a46;border:1px solid rgba(196,98,45,0.28);}
+.ht-residency{background:rgba(74,124,107,0.14);color:#6aad96;border:1px solid rgba(74,124,107,0.28);}
+.ht-grant{background:rgba(201,168,76,0.1);color:#c9a84c;border:1px solid rgba(201,168,76,0.25);}
+.ht-black{background:rgba(123,63,160,0.14);color:#b07ad4;border:1px solid rgba(123,63,160,0.28);}
+.ht-queer{background:rgba(181,80,122,0.14);color:#d47aa0;border:1px solid rgba(181,80,122,0.28);}
+.ht-free{background:rgba(46,110,78,0.14);color:#5cb88a;border:1px solid rgba(46,110,78,0.28);}
+.ht-prestige{background:rgba(201,168,76,0.07);color:var(–h-gold);border:1px solid rgba(201,168,76,0.18);}
+.ht-emerging{background:rgba(74,108,155,0.14);color:#7aaad4;border:1px solid rgba(74,108,155,0.28);}
+
+.opp-card h3{font-family:“Playfair Display”,serif;font-size:0.95rem;font-weight:700;color:var(–h-parch);line-height:1.3;}
+.oc-org{font-family:“DM Mono”,monospace;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–h-muted);margin-top:-4px;}
+.oc-summary{font-size:0.68rem;color:#a09890;line-height:1.65;font-family:“DM Sans”,sans-serif;}
+.oc-fit{font-size:0.65rem;color:#6a9e82;font-style:italic;line-height:1.5;padding:7px 9px;background:rgba(74,124,107,0.07);border-left:2px solid rgba(74,124,107,0.28);font-family:“DM Sans”,sans-serif;}
+
+/* Meta rows */
+.oc-meta{display:flex;flex-direction:column;gap:5px;padding-top:10px;border-top:1px solid #242220;}
+.oc-mr{display:flex;align-items:baseline;gap:8px;}
+.oc-mk{font-family:“DM Mono”,monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(–h-muted);width:58px;flex-shrink:0;}
+.oc-mv{font-size:0.62rem;color:var(–h-bone);line-height:1.4;font-family:“DM Mono”,monospace;}
+.oc-mv.mv-free{color:#5cb88a;}
+.oc-mv.mv-soon{color:var(–h-rust);}
+
+/* Status selector */
+.oc-status-row{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid #242220;}
+.oc-status-label{font-family:“DM Mono”,monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–h-muted);flex-shrink:0;}
+.oc-status-sel{flex:1;background:#1a1816;border:1px solid #2e2b28;color:var(–h-bone);font-family:“DM Mono”,monospace;font-size:0.55rem;padding:5px 8px;outline:none;cursor:pointer;transition:border-color 0.15s;}
+.oc-status-sel:focus{border-color:var(–h-rust);}
+.oc-status-sel option{background:#1a1816;}
+
+/* Status badges */
+.status-badge{font-family:“DM Mono”,monospace;font-size:0.4rem;letter-spacing:0.12em;text-transform:uppercase;padding:2px 8px;border:1px solid;border-radius:1px;}
+.sb-not-started{color:#6a6460;border-color:#2e2b28;background:transparent;}
+.sb-in-progress{color:#c9a84c;border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.07);}
+.sb-submitted{color:#7aaad4;border-color:rgba(74,108,155,0.3);background:rgba(74,108,155,0.07);}
+.sb-shortlisted{color:#e07a46;border-color:rgba(196,98,45,0.3);background:rgba(196,98,45,0.1);}
+.sb-awarded{color:#5cb88a;border-color:rgba(46,110,78,0.3);background:rgba(46,110,78,0.1);}
+.sb-not-selected{color:#5a5250;border-color:#2e2b28;background:rgba(30,28,26,0.5);}
+
+.oc-link-row{display:flex;align-items:center;justify-content:space-between;margin-top:2px;}
+.oc-link{display:inline-flex;align-items:center;gap:4px;font-family:“DM Mono”,monospace;font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–h-rust);text-decoration:none;transition:color 0.15s;}
+.oc-link:hover{color:var(–h-gold);}
+.oc-link::after{content:” →”;}
+.oc-archive-btn{background:none;border:none;font-family:“DM Mono”,monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a3530;cursor:pointer;transition:color 0.15s;padding:2px 0;}
+.oc-archive-btn:hover{color:#c47b7b;}
+.opp-card.oc-archived .oc-archive-btn{color:#5a5250;}
+.opp-card.oc-archived .oc-archive-btn:hover{color:#6aad96;}
+
+/* Add new opportunity */
+.h-add-btn{width:100%;background:none;border:1px dashed #2e2b28;color:var(–h-muted);font-family:“DM Mono”,monospace;font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all 0.2s;margin-top:2px;}
+.h-add-btn:hover{border-color:var(–h-rust);color:#e07a46;background:rgba(196,98,45,0.04);}
+
+/* Add form modal */
+.h-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
+.h-modal-bg.open{display:flex;}
+.h-modal{background:#181614;border:1px solid #2e2b28;padding:2rem;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative;}
+.h-modal-title{font-family:“Playfair Display”,serif;font-size:1.2rem;font-weight:700;color:var(–h-parch);margin-bottom:1.5rem;}
+.h-mf{margin-bottom:1rem;}
+.h-ml{font-family:“DM Mono”,monospace;font-size:0.45rem;letter-spacing:0.2em;text-transform:uppercase;color:#c4622d;display:block;margin-bottom:5px;}
+.h-mi,.h-mt,.h-ms{width:100%;background:#0d0b0a;border:1px solid #2e2b28;color:var(–h-bone);font-family:“DM Mono”,monospace;font-size:0.7rem;padding:8px 10px;outline:none;transition:border-color 0.15s;}
+.h-mi:focus,.h-mt:focus,.h-ms:focus{border-color:var(–h-rust);}
+.h-mt{resize:vertical;min-height:60px;line-height:1.55;}
+.h-ms option{background:#181614;}
+.h-mfr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.h-modal-actions{display:flex;gap:10px;margin-top:1.5rem;}
+.h-mact{font-family:“DM Mono”,monospace;font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;padding:10px 20px;cursor:pointer;border:1px solid;transition:all 0.15s;}
+.h-mact.primary{background:var(–h-rust);border-color:var(–h-rust);color:#fff;}
+.h-mact.primary:hover{background:#a85025;}
+.h-mact.cancel{background:none;border-color:#2e2b28;color:var(–h-muted);}
+.h-mact.cancel:hover{border-color:var(–h-muted);color:var(–h-bone);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(–panel);border:1px solid var(–pb);padding:1rem 1.5rem;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(–tl);z-index:9999;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
-.toast.success{border-color:rgba(123,196,127,0.4);color:var(--green);}
-.toast.error{border-color:rgba(196,123,123,0.4);color:var(--red);}
+.toast.success{border-color:rgba(123,196,127,0.4);color:var(–green);}
+.toast.error{border-color:rgba(196,123,123,0.4);color:var(–red);}
 
-/* ── MOBILE SIDEBAR ── */
-.ham-btn{display:none;position:fixed;top:1rem;left:1rem;z-index:200;background:var(--panel);border:1px solid var(--pb);color:var(--gold);font-size:1.1rem;width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;font-family:monospace;}
+/* ── HAM / MOBILE ── */
+.ham-btn{display:none;position:fixed;top:1rem;left:1rem;z-index:200;background:var(–panel);border:1px solid var(–pb);color:var(–gold);font-size:1.1rem;width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;font-family:monospace;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:49;}
-@media (max-width:768px){
+@media(max-width:768px){
 .ham-btn{display:flex;}
 .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;}
 .sidebar.open{transform:translateX(0);}
@@ -157,11 +287,15 @@ a{color:inherit;text-decoration:none;}
 .pa{flex-direction:row;flex-wrap:wrap;grid-column:1/-1;}
 .tl-row{grid-template-columns:1fr 1fr auto;}
 .sl-row{grid-template-columns:40px 1fr 1fr;}
+.h-grid{grid-template-columns:1fr;}
+.h-mfr{grid-template-columns:1fr;}
 }
 </style>
 
 </head>
 <body>
+
+<!-- LOGIN -->
 
 <div id="loginScreen">
   <div class="lbox">
@@ -178,6 +312,9 @@ a{color:inherit;text-decoration:none;}
 <div id="adminShell">
   <button class="ham-btn" id="hamBtn" onclick="toggleSidebar()">&#9776;</button>
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+
   <aside class="sidebar" id="sidebar">
     <div class="sb-head"><div class="sb-logo">TST Studio</div><div class="sb-tag">Site Manager</div></div>
     <nav class="sb-nav">
@@ -192,6 +329,9 @@ a{color:inherit;text-decoration:none;}
       <div class="nav-sec">Settings</div>
       <div class="ni" data-p="backup" onclick="sw(this)">&#11041; Backup &amp; Data</div>
       <div class="ni" data-p="password" onclick="sw(this)">&#9643; Change Password</div>
+      <div class="sb-divider"></div>
+      <div class="nav-sec hub-sec">Creative Hub</div>
+      <div class="ni hub-ni" data-p="opportunities" onclick="sw(this)">&#9670; Opportunities</div>
     </nav>
     <div class="sb-foot">
       <a class="sb-link" href="index.html" target="_blank">&#8599; View Live Site</a>
@@ -206,200 +346,291 @@ a{color:inherit;text-decoration:none;}
     </div>
     <div class="mc">
 
-  <!-- DASHBOARD -->
-  <div class="panel active" id="panel-dashboard">
-    <div class="sr">
-      <div class="sc"><div class="sn" id="stP">5</div><div class="sl">Paintings</div></div>
-      <div class="sc"><div class="sn" id="stA">3</div><div class="sl">Available</div></div>
-      <div class="sc"><div class="sn" id="stC">Open</div><div class="sl">Commissions</div></div>
-      <div class="sc"><div class="sn" id="stL">3</div><div class="sl">Social Links</div></div>
-    </div>
-    <div class="card">
-      <div class="c-title">Welcome back, Taylor &#10022;</div>
-      <div class="c-sub">Your creative space &mdash; manage everything from here</div>
-      <p style="font-size:0.6rem;line-height:1.9;color:var(--tl);margin-bottom:1.5rem;">Use the sidebar to navigate. Hit <strong style="color:var(--gold)">Save Changes</strong> at the top to apply updates to your live site.</p>
-      <div class="dash-grid">
-        <div class="dash-box">
-          <div class="dash-box-title">Quick Actions</div>
-          <div style="display:flex;flex-direction:column;gap:0.5rem;">
-            <button class="ab" onclick="swById('gallery')" style="text-align:left;width:100%;">+ Add a new painting</button>
-            <button class="ab" onclick="swById('commissions')" style="text-align:left;width:100%;">Toggle commissions open/closed</button>
-            <button class="ab" onclick="swById('links')" style="text-align:left;width:100%;">Update social links</button>
-          </div>
-        </div>
-        <div class="dash-box">
-          <div class="dash-box-title">Tips</div>
-          <div class="dash-box-copy">&#8226; Paste image URLs from Instagram, Imgur, etc.<br>&#8226; Export backups regularly from Backup &amp; Data<br>&#8226; Data saves to this browser &mdash; export to keep a file</div>
+<!-- ░░ DASHBOARD ░░ -->
+
+<div class="panel active" id="panel-dashboard">
+  <div class="sr">
+    <div class="sc"><div class="sn" id="stP">5</div><div class="sl">Paintings</div></div>
+    <div class="sc"><div class="sn" id="stA">3</div><div class="sl">Available</div></div>
+    <div class="sc"><div class="sn" id="stC">Open</div><div class="sl">Commissions</div></div>
+    <div class="sc"><div class="sn" id="stL">3</div><div class="sl">Social Links</div></div>
+  </div>
+  <div class="card">
+    <div class="c-title">Welcome back, Taylor &#10022;</div>
+    <div class="c-sub">Your creative space &mdash; manage everything from here</div>
+    <p style="font-size:0.6rem;line-height:1.9;color:var(--tl);margin-bottom:1.5rem;">Use the sidebar to navigate. Hit <strong style="color:var(--gold)">Save Changes</strong> at the top to apply updates to your live site. The <strong style="color:#e07a46">Creative Hub</strong> sections below the divider are your personal career tools.</p>
+    <div class="dash-grid">
+      <div class="dash-box">
+        <div class="dash-box-title">Quick Actions</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <button class="ab" onclick="swById('gallery')" style="text-align:left;width:100%;">+ Add a new painting</button>
+          <button class="ab" onclick="swById('commissions')" style="text-align:left;width:100%;">Toggle commissions open/closed</button>
+          <button class="ab" onclick="swById('links')" style="text-align:left;width:100%;">Update social links</button>
+          <button class="ab" onclick="swById('opportunities')" style="text-align:left;width:100%;border-color:rgba(196,98,45,0.3);color:#e07a46;">&#9670; View opportunities tracker</button>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- GALLERY -->
-  <div class="panel" id="panel-gallery">
-    <div class="card">
-      <div class="c-title">Gallery Paintings</div>
-      <div class="c-sub">Add, edit, or remove works from your portfolio</div>
-      <div class="pl" id="pList"></div>
-      <button class="add-p-btn" onclick="addPainting()">+ Add New Painting</button>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <div class="panel" id="panel-about">
-    <div class="card">
-      <div class="c-title">Portrait Photo</div>
-      <div class="c-sub">The photo shown in your About section</div>
-      <div class="fg"><label class="fl">Image URL</label><input class="fi" type="url" id="aPortUrl" placeholder="https://... paste an image link"><div class="fh">Paste a link to any photo &mdash; from Instagram, Imgur, or any image host.</div></div>
-      <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-top:1rem;">
-        <div class="pp-img" id="ppBox">T</div>
-        <div style="font-size:0.52rem;line-height:1.8;color:var(--wg);">Preview updates when you paste a URL and click away from the field.</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="c-title">About Text</div>
-      <div class="c-sub">Your bio and artist statement</div>
-      <div class="fg"><label class="fl">Section Heading</label><input class="fi" id="aHead"></div>
-      <div class="fr c2">
-        <div class="fg"><label class="fl">First Paragraph</label><textarea class="ft" id="aBody1" rows="5"></textarea></div>
-        <div class="fg"><label class="fl">Second Paragraph</label><textarea class="ft" id="aBody2" rows="5"></textarea></div>
-      </div>
-      <div class="fr c3" style="margin-top:0.5rem;">
-        <div class="fg"><label class="fl">Medium</label><input class="fi" id="aMed" placeholder="Oil on Canvas"></div>
-        <div class="fg"><label class="fl">Specialty</label><input class="fi" id="aSpec" placeholder="Portraiture"></div>
-        <div class="fg"><label class="fl">Based In</label><input class="fi" id="aLoc" placeholder="United States"></div>
-      </div>
-      <div class="fg" style="margin-top:0.5rem;"><label class="fl">Portrait Tag (small label on image)</label><input class="fi" id="aTag" placeholder="Oil - Mixed - Portrait"></div>
-    </div>
-  </div>
-
-  <!-- COMMISSIONS -->
-  <div class="panel" id="panel-commissions">
-    <div class="card">
-      <div class="c-title">Commission Status</div>
-      <div class="c-sub">Control whether you are accepting new commissions</div>
-      <div class="tr">
-        <div><div class="tl">Commissions Open</div><div class="td">When off, shows "Commissions Closed" on your site</div></div>
-        <label class="tog"><input type="checkbox" id="cOpen" checked><span class="tog-sl"></span></label>
-      </div>
-    </div>
-    <div class="card">
-      <div class="c-title">Commission Copy</div>
-      <div class="c-sub">The text that describes your process</div>
-      <div class="fg"><label class="fl">First Paragraph</label><textarea class="ft" id="cBody1" rows="3"></textarea></div>
-      <div class="fg"><label class="fl">Second Paragraph</label><textarea class="ft" id="cBody2" rows="3"></textarea></div>
-      <div class="fg"><label class="fl">Turnaround Time</label><input class="fi" id="cTurn" placeholder="6-10 weeks"></div>
-    </div>
-    <div class="card">
-      <div class="c-title">Pricing Tiers</div>
-      <div class="c-sub">Pricing options shown on your site</div>
-      <div class="tl-list" id="tList"></div>
-      <button class="add-t-btn" onclick="addTier()">+ Add Pricing Tier</button>
-    </div>
-    <div class="card">
-      <div class="c-title">Process Steps</div>
-      <div class="c-sub">The numbered steps shown in your commissions section</div>
-      <div class="sl-list" id="sList"></div>
-    </div>
-  </div>
-
-  <!-- LINKS -->
-  <div class="panel" id="panel-links">
-    <div class="card">
-      <div class="c-title">Social &amp; Contact Links</div>
-      <div class="c-sub">Appear in your footer and contact section</div>
-      <div class="fr c2">
-        <div class="fg"><label class="fl">Instagram URL</label><input class="fi" type="url" id="lIG" placeholder="https://instagram.com/..."></div>
-        <div class="fg"><label class="fl">TikTok URL</label><input class="fi" type="url" id="lTT" placeholder="https://tiktok.com/@..."></div>
-        <div class="fg"><label class="fl">YouTube URL</label><input class="fi" type="url" id="lYT" placeholder="https://youtube.com/@..."></div>
-        <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="lEM" placeholder="your@email.com"></div>
-        <div class="fg"><label class="fl">Shop / Print Store URL</label><input class="fi" type="url" id="lSH" placeholder="https://..."><div class="fh">Link to Etsy, Society6, Printful, etc.</div></div>
+      <div class="dash-box">
+        <div class="dash-box-title">Tips</div>
+        <div class="dash-box-copy">&#8226; Paste image URLs from Instagram, Imgur, etc.<br>&#8226; Export backups regularly from Backup &amp; Data<br>&#8226; Data saves to this browser &mdash; export to keep a file</div>
       </div>
     </div>
   </div>
-
-  <!-- APPEARANCE -->
-  <div class="panel" id="panel-appearance">
-    <div class="card">
-      <div class="c-title">Color Theme</div>
-      <div class="c-sub">Adjust your site accent colors</div>
-      <div class="fg">
-        <label class="fl">Gold / Accent Color</label>
-        <div class="cr">
-          <div class="cp" id="gPrev"><input type="color" id="gPick" value="#C9A96E" oninput="updColor('g',this.value)"></div>
-          <input class="chex" id="gHex" value="#C9A96E" oninput="updHex('g',this.value)">
-          <span style="font-size:0.47rem;color:var(--wg);">Highlights, buttons, hover</span>
-        </div>
-      </div>
-      <div class="fg" style="margin-top:1rem;">
-        <label class="fl">Burgundy / Primary Color</label>
-        <div class="cr">
-          <div class="cp" id="bPrev"><input type="color" id="bPick" value="#6B1F2A" oninput="updColor('b',this.value)"></div>
-          <input class="chex" id="bHex" value="#6B1F2A" oninput="updHex('b',this.value)">
-          <span style="font-size:0.47rem;color:var(--wg);">Buttons, badges, accents</span>
-        </div>
-      </div>
-      <div style="margin-top:1rem;padding:0.75rem;background:var(--ibg);border:1px solid var(--pb);">
-        <div style="font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--wg);margin-bottom:0.5rem;">Reset</div>
-        <button class="ab" onclick="resetColors()">Restore Original Colors</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="c-title">Section Visibility</div>
-      <div class="c-sub">Toggle which sections appear on your site</div>
-      <div class="tr"><div><div class="tl">About Section</div><div class="td">Your bio and portrait photo</div></div><label class="tog"><input type="checkbox" id="shAbout" checked><span class="tog-sl"></span></label></div>
-      <div class="tr"><div><div class="tl">Statement Section</div><div class="td">The large pull-quote break</div></div><label class="tog"><input type="checkbox" id="shStmt" checked><span class="tog-sl"></span></label></div>
-      <div class="tr"><div><div class="tl">Commissions Section</div><div class="td">Pricing, process, and inquiry form</div></div><label class="tog"><input type="checkbox" id="shComm" checked><span class="tog-sl"></span></label></div>
-    </div>
-  </div>
-
-  <!-- BACKUP -->
-  <div class="panel" id="panel-backup">
-    <div class="card">
-      <div class="c-title">Backup &amp; Restore</div>
-      <div class="c-sub">Export your content to a file, or import a backup</div>
-      <p style="font-size:0.6rem;line-height:1.9;color:var(--tl);margin-bottom:1.5rem;">Your site data lives in this browser. <strong style="color:var(--gold)">Export regularly</strong> to keep a backup. If you switch devices or clear your browser, import that file to restore everything.</p>
-      <div class="bk-acts">
-        <button class="bk-btn exp" onclick="exportData()">&#8595; Export Data Backup</button>
-        <button class="bk-btn imp" onclick="document.getElementById('importFile').click()">&#8593; Import from Backup</button>
-        <input type="file" id="importFile" accept=".json" onchange="importData(event)">
-        <button class="bk-btn rst" onclick="doReset()">&#9888; Reset to Defaults</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="c-title">How to Add Painting Images</div>
-      <div class="c-sub">A quick guide</div>
-      <div style="font-size:0.58rem;line-height:2;color:var(--tl);">
-        <strong style="color:var(--gold);">Option 1 &mdash; Imgur (easiest):</strong> Upload to imgur.com (free). Right-click the image &rarr; Copy Image Address.<br>
-        <strong style="color:var(--gold);">Option 2 &mdash; Instagram:</strong> Open a post, right-click image &rarr; Copy Image Address.<br>
-        <strong style="color:var(--gold);">Option 3 &mdash; Any host:</strong> Squarespace, Cloudinary, Google Photos (with public share link).<br><br>
-        <span style="color:var(--wg);">The URL should end in .jpg, .png, or .webp &mdash; it must point directly to the image file.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PASSWORD -->
-  <div class="panel" id="panel-password">
-    <div class="card">
-      <div class="c-title">Change Password</div>
-      <div class="c-sub">Set a new password for your admin panel</div>
-      <div class="fg"><label class="fl">Current Password</label><input class="fi" type="password" id="curP" placeholder="Current password"></div>
-      <div class="fg"><label class="fl">New Password</label><input class="fi" type="password" id="newP" placeholder="New password (min 6 characters)"></div>
-      <div class="fg"><label class="fl">Confirm New Password</label><input class="fi" type="password" id="conP" placeholder="Repeat new password"></div>
-      <button class="ab" onclick="chgPass()" style="margin-top:0.5rem;padding:0.7rem 2rem;">Update Password</button>
-      <div id="pMsg" style="font-size:0.52rem;margin-top:0.75rem;display:none;letter-spacing:0.1em;"></div>
-    </div>
-  </div>
-
 </div>
 
+<!-- ░░ GALLERY ░░ -->
+
+<div class="panel" id="panel-gallery">
+  <div class="card">
+    <div class="c-title">Gallery Paintings</div>
+    <div class="c-sub">Add, edit, or remove works from your portfolio</div>
+    <div class="pl" id="pList"></div>
+    <button class="add-p-btn" onclick="addPainting()">+ Add New Painting</button>
+  </div>
+</div>
+
+<!-- ░░ ABOUT ░░ -->
+
+<div class="panel" id="panel-about">
+  <div class="card">
+    <div class="c-title">Portrait Photo</div>
+    <div class="c-sub">The photo shown in your About section</div>
+    <div class="fg"><label class="fl">Image URL</label><input class="fi" type="url" id="aPortUrl" placeholder="https://... paste an image link"><div class="fh">Paste a link to any photo &mdash; from Instagram, Imgur, or any image host.</div></div>
+    <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-top:1rem;">
+      <div class="pp-img" id="ppBox">T</div>
+      <div style="font-size:0.52rem;line-height:1.8;color:var(--wg);">Preview updates when you paste a URL and click away from the field.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="c-title">About Text</div>
+    <div class="c-sub">Your bio and artist statement</div>
+    <div class="fg"><label class="fl">Section Heading</label><input class="fi" id="aHead"></div>
+    <div class="fr c2">
+      <div class="fg"><label class="fl">First Paragraph</label><textarea class="ft" id="aBody1" rows="5"></textarea></div>
+      <div class="fg"><label class="fl">Second Paragraph</label><textarea class="ft" id="aBody2" rows="5"></textarea></div>
+    </div>
+    <div class="fr c3" style="margin-top:0.5rem;">
+      <div class="fg"><label class="fl">Medium</label><input class="fi" id="aMed" placeholder="Oil on Canvas"></div>
+      <div class="fg"><label class="fl">Specialty</label><input class="fi" id="aSpec" placeholder="Portraiture"></div>
+      <div class="fg"><label class="fl">Based In</label><input class="fi" id="aLoc" placeholder="United States"></div>
+    </div>
+    <div class="fg" style="margin-top:0.5rem;"><label class="fl">Portrait Tag (small label on image)</label><input class="fi" id="aTag" placeholder="Oil - Mixed - Portrait"></div>
+  </div>
+</div>
+
+<!-- ░░ COMMISSIONS ░░ -->
+
+<div class="panel" id="panel-commissions">
+  <div class="card">
+    <div class="c-title">Commission Status</div>
+    <div class="c-sub">Control whether you are accepting new commissions</div>
+    <div class="tr">
+      <div><div class="tl-label">Commissions Open</div><div class="td">When off, shows "Commissions Closed" on your site</div></div>
+      <label class="tog"><input type="checkbox" id="cOpen" checked><span class="tog-sl"></span></label>
+    </div>
+  </div>
+  <div class="card">
+    <div class="c-title">Commission Copy</div>
+    <div class="c-sub">The text that describes your process</div>
+    <div class="fg"><label class="fl">First Paragraph</label><textarea class="ft" id="cBody1" rows="3"></textarea></div>
+    <div class="fg"><label class="fl">Second Paragraph</label><textarea class="ft" id="cBody2" rows="3"></textarea></div>
+    <div class="fg"><label class="fl">Turnaround Time</label><input class="fi" id="cTurn" placeholder="6-10 weeks"></div>
+  </div>
+  <div class="card">
+    <div class="c-title">Pricing Tiers</div>
+    <div class="c-sub">Pricing options shown on your site</div>
+    <div class="tl-list" id="tList"></div>
+    <button class="add-t-btn" onclick="addTier()">+ Add Pricing Tier</button>
+  </div>
+  <div class="card">
+    <div class="c-title">Process Steps</div>
+    <div class="c-sub">The numbered steps shown in your commissions section</div>
+    <div class="sl-list" id="sList"></div>
+  </div>
+</div>
+
+<!-- ░░ LINKS ░░ -->
+
+<div class="panel" id="panel-links">
+  <div class="card">
+    <div class="c-title">Social &amp; Contact Links</div>
+    <div class="c-sub">Appear in your footer and contact section</div>
+    <div class="fr c2">
+      <div class="fg"><label class="fl">Instagram URL</label><input class="fi" type="url" id="lIG" placeholder="https://instagram.com/..."></div>
+      <div class="fg"><label class="fl">TikTok URL</label><input class="fi" type="url" id="lTT" placeholder="https://tiktok.com/@..."></div>
+      <div class="fg"><label class="fl">YouTube URL</label><input class="fi" type="url" id="lYT" placeholder="https://youtube.com/@..."></div>
+      <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="lEM" placeholder="your@email.com"></div>
+      <div class="fg"><label class="fl">Shop / Print Store URL</label><input class="fi" type="url" id="lSH" placeholder="https://..."><div class="fh">Link to Etsy, Society6, Printful, etc.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ APPEARANCE ░░ -->
+
+<div class="panel" id="panel-appearance">
+  <div class="card">
+    <div class="c-title">Color Theme</div>
+    <div class="c-sub">Adjust your site accent colors</div>
+    <div class="fg">
+      <label class="fl">Gold / Accent Color</label>
+      <div class="cr">
+        <div class="cp" id="gPrev"><input type="color" id="gPick" value="#C9A96E" oninput="updColor('g',this.value)"></div>
+        <input class="chex" id="gHex" value="#C9A96E" oninput="updHex('g',this.value)">
+        <span style="font-size:0.47rem;color:var(--wg);">Highlights, buttons, hover</span>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:1rem;">
+      <label class="fl">Burgundy / Primary Color</label>
+      <div class="cr">
+        <div class="cp" id="bPrev"><input type="color" id="bPick" value="#6B1F2A" oninput="updColor('b',this.value)"></div>
+        <input class="chex" id="bHex" value="#6B1F2A" oninput="updHex('b',this.value)">
+        <span style="font-size:0.47rem;color:var(--wg);">Buttons, badges, accents</span>
+      </div>
+    </div>
+    <div style="margin-top:1rem;padding:0.75rem;background:var(--ibg);border:1px solid var(--pb);">
+      <div style="font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--wg);margin-bottom:0.5rem;">Reset</div>
+      <button class="ab" onclick="resetColors()">Restore Original Colors</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="c-title">Section Visibility</div>
+    <div class="c-sub">Toggle which sections appear on your site</div>
+    <div class="tr"><div><div class="tl-label">About Section</div><div class="td">Your bio and portrait photo</div></div><label class="tog"><input type="checkbox" id="shAbout" checked><span class="tog-sl"></span></label></div>
+    <div class="tr"><div><div class="tl-label">Statement Section</div><div class="td">The large pull-quote break</div></div><label class="tog"><input type="checkbox" id="shStmt" checked><span class="tog-sl"></span></label></div>
+    <div class="tr"><div><div class="tl-label">Commissions Section</div><div class="td">Pricing, process, and inquiry form</div></div><label class="tog"><input type="checkbox" id="shComm" checked><span class="tog-sl"></span></label></div>
+  </div>
+</div>
+
+<!-- ░░ BACKUP ░░ -->
+
+<div class="panel" id="panel-backup">
+  <div class="card">
+    <div class="c-title">Backup &amp; Restore</div>
+    <div class="c-sub">Export your content to a file, or import a backup</div>
+    <p style="font-size:0.6rem;line-height:1.9;color:var(--tl);margin-bottom:1.5rem;">Your site data lives in this browser. <strong style="color:var(--gold)">Export regularly</strong> to keep a backup. If you switch devices or clear your browser, import that file to restore everything.</p>
+    <div class="bk-acts">
+      <button class="bk-btn exp" onclick="exportData()">&#8595; Export Data Backup</button>
+      <button class="bk-btn imp" onclick="document.getElementById('importFile').click()">&#8593; Import from Backup</button>
+      <input type="file" id="importFile" accept=".json" onchange="importData(event)">
+      <button class="bk-btn rst" onclick="doReset()">&#9888; Reset to Defaults</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="c-title">How to Add Painting Images</div>
+    <div class="c-sub">A quick guide</div>
+    <div style="font-size:0.58rem;line-height:2;color:var(--tl);">
+      <strong style="color:var(--gold);">Option 1 &mdash; Imgur (easiest):</strong> Upload to imgur.com (free). Right-click the image &rarr; Copy Image Address.<br>
+      <strong style="color:var(--gold);">Option 2 &mdash; Instagram:</strong> Open a post, right-click image &rarr; Copy Image Address.<br>
+      <strong style="color:var(--gold);">Option 3 &mdash; Any host:</strong> Squarespace, Cloudinary, Google Photos (with public share link).<br><br>
+      <span style="color:var(--wg);">The URL should end in .jpg, .png, or .webp &mdash; it must point directly to the image file.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ PASSWORD ░░ -->
+
+<div class="panel" id="panel-password">
+  <div class="card">
+    <div class="c-title">Change Password</div>
+    <div class="c-sub">Set a new password for your admin panel</div>
+    <div class="fg"><label class="fl">Current Password</label><input class="fi" type="password" id="curP" placeholder="Current password"></div>
+    <div class="fg"><label class="fl">New Password</label><input class="fi" type="password" id="newP" placeholder="New password (min 6 characters)"></div>
+    <div class="fg"><label class="fl">Confirm New Password</label><input class="fi" type="password" id="conP" placeholder="Repeat new password"></div>
+    <button class="ab" onclick="chgPass()" style="margin-top:0.5rem;padding:0.7rem 2rem;">Update Password</button>
+    <div id="pMsg" style="font-size:0.52rem;margin-top:0.75rem;display:none;letter-spacing:0.1em;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CREATIVE HUB PANELS
+══════════════════════════════════════ -->
+
+<!-- ░░ OPPORTUNITIES ░░ -->
+
+<div class="panel" id="panel-opportunities">
+<div class="h-wrap">
+
+  <div class="h-banner">
+    <div class="h-eyebrow">Creative Hub — Career Development</div>
+    <div class="h-title">The <em>Work</em> Deserves<br>To Be Seen.</div>
+    <div class="h-sub">Track competitions, residencies, and grants. Update application status, add your own, and archive what's done.</div>
+  </div>
+
+  <div class="h-stats">
+    <div class="h-stat"><div class="h-stat-n" id="opp-count-total">0</div><div class="h-stat-l">Total Active</div></div>
+    <div class="h-stat"><div class="h-stat-n" id="opp-count-free">0</div><div class="h-stat-l">Free to Apply</div></div>
+    <div class="h-stat"><div class="h-stat-n" id="opp-count-progress">0</div><div class="h-stat-l">In Progress</div></div>
+    <div class="h-stat"><div class="h-stat-n" id="opp-count-submitted">0</div><div class="h-stat-l">Submitted</div></div>
+    <div class="h-stat"><div class="h-stat-n" id="opp-count-awarded">0</div><div class="h-stat-l">Awarded 🏆</div></div>
+  </div>
+
+  <div class="h-filters">
+    <span class="h-filter-label">Filter:</span>
+    <button class="h-fb hf-active" data-hcat="all" onclick="filterOpps(this)">All</button>
+    <button class="h-fb" data-hcat="competition" onclick="filterOpps(this)">Competitions</button>
+    <button class="h-fb" data-hcat="residency" onclick="filterOpps(this)">Residencies</button>
+    <button class="h-fb" data-hcat="grant" onclick="filterOpps(this)">Grants</button>
+    <button class="h-fb" data-hcat="black" onclick="filterOpps(this)">Black Voices</button>
+    <button class="h-fb" data-hcat="queer" onclick="filterOpps(this)">Queer Voices</button>
+    <button class="h-fb" data-hcat="free" onclick="filterOpps(this)">Free to Enter</button>
+    <button class="h-fb" data-hcat="archived" onclick="filterOpps(this)">Archived</button>
+  </div>
+
+  <div class="h-grid" id="opp-grid"></div>
+  <button class="h-add-btn" onclick="openAddOpp()">+ Add an opportunity</button>
+
+</div>
+</div>
+
+```
+</div><!-- /mc -->
+```
+
   </main>
+</div><!-- /adminShell -->
+
+<!-- ADD OPPORTUNITY MODAL -->
+
+<div class="h-modal-bg" id="opp-modal">
+  <div class="h-modal">
+    <div class="h-modal-title">Add Opportunity</div>
+    <div class="h-mfr">
+      <div class="h-mf"><label class="h-ml">Name *</label><input class="h-mi" id="om-name" placeholder="Competition or program name"></div>
+      <div class="h-mf"><label class="h-ml">Organization</label><input class="h-mi" id="om-org" placeholder="Who runs it"></div>
+    </div>
+    <div class="h-mf"><label class="h-ml">Summary</label><textarea class="h-mt" id="om-summary" rows="2" placeholder="Brief description of what they look for"></textarea></div>
+    <div class="h-mfr">
+      <div class="h-mf"><label class="h-ml">Deadline</label><input class="h-mi" id="om-deadline" placeholder="e.g. Rolling, Jan 2027"></div>
+      <div class="h-mf"><label class="h-ml">Application Fee</label><input class="h-mi" id="om-fee" placeholder="e.g. Free, $25, $15/category"></div>
+    </div>
+    <div class="h-mfr">
+      <div class="h-mf"><label class="h-ml">Prize / Support</label><input class="h-mi" id="om-prize" placeholder="e.g. $5,000, Fully Funded"></div>
+      <div class="h-mf"><label class="h-ml">Website URL</label><input class="h-mi" id="om-url" placeholder="https://..."></div>
+    </div>
+    <div class="h-mf">
+      <label class="h-ml">Type (check all that apply)</label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="competition" class="om-cat"> Competition</label>
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="residency" class="om-cat"> Residency</label>
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="grant" class="om-cat"> Grant</label>
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="black" class="om-cat"> Black Voices</label>
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="queer" class="om-cat"> Queer Voices</label>
+        <label style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--h-muted);cursor:pointer;"><input type="checkbox" value="free" class="om-cat"> Free to Enter</label>
+      </div>
+    </div>
+    <div class="h-modal-actions">
+      <button class="h-mact primary" onclick="submitAddOpp()">Add Opportunity</button>
+      <button class="h-mact cancel" onclick="closeAddOpp()">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const DEFS = {
+/* ════════════════════════════════════════
+   ORIGINAL SITE DATA & FUNCTIONS
+════════════════════════════════════════ */
+const DEFS={
   paintings:[
     {id:1,title:'Study in Amber',medium:'Oil on Canvas',dimensions:'24x30 in',available:true,imageUrl:'',description:''},
     {id:2,title:'The Weight of a Glance',medium:'Oil on Canvas',dimensions:'16x20 in',available:false,imageUrl:'',description:''},
@@ -413,7 +644,7 @@ const DEFS = {
   appearance:{showAbout:true,showStatement:true,showCommissions:true,accentColor:'#C9A96E',primaryColor:'#6B1F2A'}
 };
 
-let D = JSON.parse(JSON.stringify(DEFS));
+let D=JSON.parse(JSON.stringify(DEFS));
 function loadD(){try{const s=localStorage.getItem('tst_site_data');if(s)D=JSON.parse(s);}catch(e){}}
 function saveD(){localStorage.setItem('tst_site_data',JSON.stringify(D));}
 function getPw(){return localStorage.getItem('tst_pw')||'tstarts2025';}
@@ -424,17 +655,53 @@ function doLogin(){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminShell').style.display='block';
     loadD();fillAll();updStats();
+    loadHubData();renderOpps();
   }else{document.getElementById('lErr').style.display='block';document.getElementById('lp').value='';}
 }
 document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 function logout(){document.getElementById('adminShell').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('lp').value='';}
 
-const TITLES={dashboard:'Dashboard',gallery:'Gallery Paintings',about:'About Section',commissions:'Commissions',links:'Links & Contact',appearance:'Appearance',backup:'Backup & Data',password:'Change Password'};
+const TITLES={dashboard:'Dashboard',gallery:'Gallery Paintings',about:'About Section',commissions:'Commissions',links:'Links & Contact',appearance:'Appearance',backup:'Backup & Data',password:'Change Password',opportunities:'Opportunities Tracker'};
 function sw(el){document.querySelectorAll('.ni').forEach(i=>i.classList.remove('active'));el.classList.add('active');const id=el.dataset.p;document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('pgTitle').textContent=TITLES[id]||id;}
 function swById(id){const el=document.querySelector('[data-p="'+id+'"]');if(el)sw(el);}
 
-function saveAll(){collectAll();saveD();updStats();const b=document.getElementById('svBtn');b.textContent='Saved!';b.classList.add('saved');setTimeout(()=>{b.textContent='Save Changes';b.classList.remove('saved');},2000);toast('Changes saved!','success');}
+function async function saveAll(){
+collectAll(); saveD(); saveHubData(); updStats();
+const b=document.getElementById(‘svBtn’);
+b.textContent=‘Saving…’; b.disabled=true;
+try {
+await pushToGitHub();
+b.textContent=‘Saved!’; b.classList.add(‘saved’);
+toast(‘Live site updated — goes live in ~60 seconds.’,‘success’);
+} catch(err) {
+b.textContent=‘Save Changes’;
+toast(’Push failed: ’+err.message,‘error’);
+console.error(err);
+} finally {
+b.disabled=false;
+setTimeout(()=>{b.textContent=‘Save Changes’;b.classList.remove(‘saved’);},4000);
+}
+}
 
+async function pushToGitHub() {
+const WORKER=‘https://tststudio-admin.placeholder4543.workers.dev’;
+const r=await fetch(‘https://api.github.com/repos/Tstarts1/TayStudio/contents/index.html’,{headers:{‘User-Agent’:‘TSTStudio-Admin’}});
+if(!r.ok) throw new Error(‘Could not read index.html from GitHub’);
+const f=await r.json(); const sha=f.sha;
+const current=decodeURIComponent(escape(atob(f.content.replace(/\n/g,’’))));
+const newContent=injectData(current,JSON.stringify(D,null,2));
+const p=await fetch(WORKER,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({content:btoa(unescape(encodeURIComponent(newContent))),sha})});
+if(!p.ok){const e=await p.json().catch(()=>({}));throw new Error(e.message||’Worker error ’+p.status);}
+}
+
+function injectData(html,json){
+var open=’<script id="tst-preload">’;
+var close=’<’+’/script>’;
+var safe=json.replace(/\/g,’\\’).replace(/`/g,'\\`’);
+var block=open+’\n(function(){try{localStorage.setItem(“tst_site_data”,`'+safe+'`);}catch(e){}})();\n’+close;
+var cleaned=html.replace(/<script id="tst-preload">[\s\S]*?</script>/,’’);
+return cleaned.replace(’<script>’,block+’\n<script>’);
+}
 function fillAll(){fillAbout();fillGallery();fillCommissions();fillLinks();fillAppearance();}
 
 function fillAbout(){const a=D.about;
@@ -451,16 +718,13 @@ function fillAbout(){const a=D.about;
 }
 function updPP(url){const b=document.getElementById('ppBox');b.innerHTML=url?'<img src="'+url+'" onerror="this.parentElement.innerHTML=\'T\'" alt="portrait">':'T';}
 
-function fillGallery(){
-  const list=document.getElementById('pList');list.innerHTML='';
-  D.paintings.forEach((p,i)=>list.appendChild(mkPC(p,i)));
-}
+function fillGallery(){const list=document.getElementById('pList');list.innerHTML='';D.paintings.forEach((p)=>list.appendChild(mkPC(p)));}
 function mkPC(p){
   const c=document.createElement('div');c.className='pc';c.dataset.id=p.id;
   const th=document.createElement('div');th.className='pt';
   th.innerHTML=p.imageUrl?'<img src="'+esc(p.imageUrl)+'" onerror="this.parentElement.innerHTML=\'<div class=ptp>+</div>\">':'<div class="ptp">+</div>';
   const f=document.createElement('div');f.className='pf';
-  f.innerHTML='<div class="fr c2"><div class="fg" style="margin:0"><label class="fl">Title</label><input class="fi p-ti" value="'+esc(p.title)+'" placeholder="Title"></div><div class="fg" style="margin:0"><label class="fl">Medium</label><input class="fi p-me" value="'+esc(p.medium)+'" placeholder="Oil on Canvas"></div></div><div class="fr c2"><div class="fg" style="margin:0"><label class="fl">Dimensions</label><input class="fi p-di" value="'+esc(p.dimensions)+'" placeholder="24x30 in"></div><div class="fg" style="margin:0"><label class="fl">Description</label><input class="fi p-de" value="'+esc(p.description)+'" placeholder="Optional note"></div></div><div class="fg" style="margin:0"><label class="fl">Image URL</label><input class="fi p-ur" value="'+esc(p.imageUrl)+'" placeholder="https://... paste image link"></div>';
+  f.innerHTML='<div class="fr c2"><div class="fg" style="margin:0"><label class="fl">Title</label><input class="fi p-ti" value="'+esc(p.title)+'" placeholder="Title"></div><div class="fg" style="margin:0"><label class="fl">Medium</label><input class="fi p-me" value="'+esc(p.medium)+'" placeholder="Oil on Canvas"></div></div><div class="fr c2"><div class="fg" style="margin:0"><label class="fl">Dimensions</label><input class="fi p-di" value="'+esc(p.dimensions)+'" placeholder="24x30 in"></div><div class="fg" style="margin:0"><label class="fl">Description</label><input class="fi p-de" value="'+esc(p.description||'')+'" placeholder="Optional note"></div></div><div class="fg" style="margin:0"><label class="fl">Image URL</label><input class="fi p-ur" value="'+esc(p.imageUrl)+'" placeholder="https://... paste image link"></div>';
   f.querySelector('.p-ur').addEventListener('blur',e=>{const u=e.target.value;th.innerHTML=u?'<img src="'+u+'" onerror="this.parentElement.innerHTML=\'<div class=ptp>+</div>\">':'<div class="ptp">+</div>';});
   const ac=document.createElement('div');ac.className='pa';
   ac.innerHTML='<span class="avb '+(p.available?'yes':'no')+'">'+(p.available?'Available':'Sold/NFS')+'</span><button class="ab" onclick="togAv('+p.id+',this)">Toggle Available</button><button class="ab danger" onclick="rmP('+p.id+')">Remove</button>';
@@ -524,21 +788,180 @@ function collectAll(){
 function updColor(t,v){if(t==='g'){document.getElementById('gHex').value=v;document.getElementById('gPrev').style.background=v;}else{document.getElementById('bHex').value=v;document.getElementById('bPrev').style.background=v;}}
 function updHex(t,v){if(/^#[0-9A-Fa-f]{6}$/.test(v)){if(t==='g'){document.getElementById('gPick').value=v;document.getElementById('gPrev').style.background=v;}else{document.getElementById('bPick').value=v;document.getElementById('bPrev').style.background=v;}}}
 function resetColors(){updColor('g','#C9A96E');document.getElementById('gPick').value='#C9A96E';document.getElementById('gHex').value='#C9A96E';updColor('b','#6B1F2A');document.getElementById('bPick').value='#6B1F2A';document.getElementById('bHex').value='#6B1F2A';}
-
 function updStats(){const p=D.paintings||[];document.getElementById('stP').textContent=p.length;document.getElementById('stA').textContent=p.filter(x=>x.available).length;document.getElementById('stC').textContent=D.commissions.open?'Open':'Closed';const l=D.links;document.getElementById('stL').textContent=[l.instagram,l.tiktok,l.youtube,l.email,l.shopUrl].filter(Boolean).length;}
-
 function exportData(){collectAll();const blob=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tst-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Backup downloaded!','success');}
 function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{D=JSON.parse(ev.target.result);saveD();fillAll();updStats();toast('Data imported!','success');}catch{toast('Import failed — invalid file','error');}};r.readAsText(f);e.target.value='';}
-function doReset(){if(confirm('This will erase all your content and restore defaults. Sure?')){D=JSON.parse(JSON.stringify(DEFS));saveD();fillAll();updStats();toast('Reset to defaults','success');}}
-
+function doReset(){if(!confirm('This will erase all your content and restore defaults. Sure?'))return;D=JSON.parse(JSON.stringify(DEFS));saveD();fillAll();updStats();toast('Reset to defaults','success');}
 function chgPass(){const c=document.getElementById('curP').value,n=document.getElementById('newP').value,cf=document.getElementById('conP').value,m=document.getElementById('pMsg');m.style.display='block';if(c!==getPw()){m.style.color='var(--red)';m.textContent='Current password is incorrect.';return;}if(n.length<6){m.style.color='var(--red)';m.textContent='New password must be 6+ characters.';return;}if(n!==cf){m.style.color='var(--red)';m.textContent='Passwords do not match.';return;}localStorage.setItem('tst_pw',n);m.style.color='var(--green)';m.textContent='Password updated!';document.getElementById('curP').value='';document.getElementById('newP').value='';document.getElementById('conP').value='';}
-
 function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type||'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
-function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('overlay');if(!s||!o)return;s.classList.toggle('open');o.classList.toggle('show');}
-function closeSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('overlay');if(!s||!o)return;s.classList.remove('open');o.classList.remove('show');}
-// Close sidebar after nav item click on mobile
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('overlay');s.classList.toggle('open');o.classList.toggle('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.ni').forEach(el=>el.addEventListener('click',()=>{if(window.innerWidth<=768)closeSidebar();}));});
+
+/* ════════════════════════════════════════
+   HUB DATA
+════════════════════════════════════════ */
+let HD={opportunities:[]};
+
+const DEFAULT_OPPS=[
+  {id:1,name:'Outwin Boochever Portrait Competition',org:'Smithsonian National Portrait Gallery',summary:'The most prestigious portrait competition in the US. Triennial — jurors seek work that pushes portraiture into social, political, and emotional territory. Past jurors include Kerry James Marshall and LaToya Ruby Frazier.',deadline:'~Late 2026 (triennial, watch for open call)',fee:'~$10–20 processing fee',prize:'$25k 1st + Smithsonian commission; $10k 2nd; $7.5k 3rd',media:'All media — oil painting fully eligible',url:'https://portraitcompetition.si.edu/',cats:'competition prestige',status:'not-started',archived:false,accent:'#c4622d'},
+  {id:2,name:'18th International ARC Salon Competition',org:'Art Renewal Center',summary:'One of the largest international figurative art competitions. Portraiture is its own category. Exhibition at Sotheby\'s New York. Strong academic/realist lean — best for refined portrait work.',deadline:'Rolling — check arcsalon.org',fee:'~$30–60 per entry',prize:'$25k Best in Show + Sotheby\'s NYC exhibition',media:'Oil painting, drawing, sculpture',url:'https://www.arcsalon.org/',cats:'competition prestige',status:'not-started',archived:false,accent:'#c4622d'},
+  {id:3,name:'Portrait Society of America — International Competition',org:'Portrait Society of America',summary:'Annual open competition, no membership required. $50k Draper Grand Prize. Final judging at Atlanta conference each April. Also has a Future Generation category for artists 18–25.',deadline:'Sept–Feb annually (2027 cycle opens ~Sept 2026)',fee:'~$40–55 per entry',prize:'$50k Grand Prize + multiple secondary awards',media:'All media accepted',url:'https://www.portraitsociety.org/competitions',cats:'competition emerging',status:'not-started',archived:false,accent:'#c4622d'},
+  {id:4,name:'Oil Painters of America — National Juried Exhibition',org:'Oil Painters of America',summary:'35th annual national show at Steamboat Art Museum, CO. One of the most respected oil painting showcases in North America. All work must be for sale — good collector visibility.',deadline:'~March annually',fee:'OPA membership ~$100/yr + ~$35 entry fee',prize:'Cash awards; artist keeps 50% of sales',media:'Oil painting only',url:'https://www.oilpaintersofamerica.com/',cats:'competition',status:'not-started',archived:false,accent:'#c4622d'},
+  {id:5,name:'Bombay Sapphire Artisan Series',org:'Bombay Sapphire',summary:'Annual juried competition celebrating emerging artists. Historically strong representation of Black contemporary artists. Bold expressive figurative work consistently performs well. Regional rounds lead to a national final.',deadline:'Annual — watch for open call',fee:'Free to enter',prize:'Cash + national exhibition + brand exposure',media:'All media',url:'https://www.bombaysapphire.com/artisan',cats:'competition black free',status:'not-started',archived:false,accent:'#7b3fa0'},
+  {id:6,name:'Studio Museum in Harlem — Artist-in-Residence',org:'Studio Museum in Harlem',summary:'Most prestigious residency for artists of African and Afro-Latinx descent in the country. Seven-month program culminating in a solo exhibition. Alumni include Kehinde Wiley, Mickalene Thomas, and Kara Walker.',deadline:'Annual — watch studiomuseum.org for 2027 open call',fee:'Free — no application fee',prize:'Studio, stipend, solo exhibition, mentorship',media:'All media',url:'https://www.studiomuseum.org/residency',cats:'residency black prestige free',status:'not-started',archived:false,accent:'#7b3fa0'},
+  {id:7,name:'Baldwin For The Arts Fellowship',org:'Founded by Jacqueline Woodson',summary:'1–2 week immersive residency covering ALL costs — travel, housing, meals (private chef), and studio. Prioritizes artists of the Global Majority. Built as a safe, nurturing space for historically underrepresented creators.',deadline:'April 18, 2026 — Apply Now!',fee:'$15 per discipline category',prize:'100% covered — travel, housing, meals, studio',media:'All visual arts',url:'https://www.baldwinforthearts.org',cats:'residency black free',status:'not-started',archived:false,accent:'#7b3fa0'},
+  {id:8,name:'Queer & Trans Research Lab — Artist-in-Residence',org:'University of Toronto / QTRL',summary:'International residency for artists whose work centers LGBTQ2S+ lives, histories, and cultures. Provides financial and material support throughout, culminating in a fully funded exhibition.',deadline:'Rolling — check qtrl.ca',fee:'Free — no application fee',prize:'Financial + material support + funded exhibition',media:'Any medium',url:'https://www.qtrl.ca/',cats:'residency queer free',status:'not-started',archived:false,accent:'#b5507a'},
+  {id:9,name:'Queer | Art Mentorship Program',org:'Queer Art NYC',summary:'Annual mentorship pairing emerging LGBTQ+ artists with established mentors. Year-long structured program with exhibition opportunities, professional development, and a strong community network.',deadline:'Annual — watch queer-art.org for open call',fee:'Free to apply',prize:'Mentorship, exhibition, community, professional dev',media:'All disciplines',url:'https://www.queer-art.org',cats:'residency queer black free',status:'not-started',archived:false,accent:'#b5507a'},
+  {id:10,name:'TBQA InResidency — Bureau of Queer Art',org:'TBQA Collectivo',summary:'Low-residency hybrid for queer and allied artists. Online with optional in-person time in Mexico City. Weekly studio visits, structured critique, and curatorial mentorship. Opens pathways into TBQA\'s exhibition ecosystem.',deadline:'Rolling — check tbqa.org',fee:'Program fee — check site',prize:'Weekly crits, curatorial mentorship, exhibition access',media:'All visual arts',url:'https://www.tbqa.org',cats:'residency queer',status:'not-started',archived:false,accent:'#b5507a'},
+  {id:11,name:'Residency Unlimited — NYC-Based Artist Residency',org:'Residency Unlimited, Brooklyn NY',summary:'Dedicated to NYC-based artists traditionally underrepresented in the arts. Explicitly encourages BIPOC and LGBTQ+ applicants. Culminates in a group exhibition at Westbeth Gallery.',deadline:'Annual — watch residencyunlimited.org for 2027 call',fee:'Free — no application fee',prize:'Studio, stipend, group exhibition, mentorship',media:'All visual arts',url:'https://residencyunlimited.org',cats:'residency black queer free',status:'not-started',archived:false,accent:'#4a7c6b'},
+  {id:12,name:'Pollock-Krasner Foundation Grant',org:'Pollock-Krasner Foundation',summary:'One of the most accessible grants for working painters. Rolling applications year-round — no deadline. Supports painters, sculptors, and artists on paper. Unrestricted funding.',deadline:'Rolling — no deadline, apply anytime',fee:'Free — no application fee',prize:'Typically $5,000–$15,000 unrestricted',media:'Painters, sculptors, printmakers',url:'https://pkf.org/grants/',cats:'grant free',status:'not-started',archived:false,accent:'#c9a84c'},
+  {id:13,name:'The Hopper Prize',org:'The Hopper Prize',summary:'Two $4,500 grants per quarterly cycle. Highly regarded in the contemporary art world — winners have gone on to major gallery representation. Favors artists with a strong personal visual identity.',deadline:'Quarterly — check hopperprize.com',fee:'~$15–25 entry fee',prize:'2× $4,500 per quarterly cycle',media:'All visual artists, international',url:'https://hopperprize.org',cats:'grant emerging',status:'not-started',archived:false,accent:'#c9a84c'},
+];
+
+function loadHubData(){
+  try{const s=localStorage.getItem('tst_hub_data');if(s){const p=JSON.parse(s);HD=Object.assign({opportunities:[]},p);}}catch(e){}
+  if(!HD.opportunities||HD.opportunities.length===0)HD.opportunities=JSON.parse(JSON.stringify(DEFAULT_OPPS));
+}
+function saveHubData(){localStorage.setItem('tst_hub_data',JSON.stringify(HD));}
+
+/* ════════════════════════════════════════
+   OPPORTUNITIES
+════════════════════════════════════════ */
+const STATUS_META={
+  'not-started':{label:'Not Started',cls:'sb-not-started'},
+  'in-progress':{label:'In Progress',cls:'sb-in-progress'},
+  'submitted':{label:'Submitted',cls:'sb-submitted'},
+  'shortlisted':{label:'Finalist / Shortlisted',cls:'sb-shortlisted'},
+  'awarded':{label:'Awarded 🏆',cls:'sb-awarded'},
+  'not-selected':{label:'Not Selected',cls:'sb-not-selected'}
+};
+
+function renderOpps(){
+  const grid=document.getElementById('opp-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  (HD.opportunities||[]).forEach(o=>grid.appendChild(mkOppCard(o)));
+  updOppStats();
+}
+
+function mkOppCard(o){
+  const div=document.createElement('div');
+  div.className='opp-card'+(o.archived?' oc-archived':'')+(o.status==='awarded'?' oc-awarded':'');
+  div.dataset.id=o.id;
+  div.dataset.cats=o.cats||'';
+  div.style.setProperty('--oc-accent',o.accent||'#c4622d');
+
+  const cats=(o.cats||'').split(' ').filter(Boolean);
+  const tagHTML=cats.map(c=>`<span class="htag ht-${c}">${c}</span>`).join('');
+  const sm=STATUS_META[o.status]||STATUS_META['not-started'];
+
+  div.innerHTML=`
+    <div class="oc-top">
+      <div class="oc-tags">${tagHTML}</div>
+      <div class="oc-prize">${esc(o.prize||'')}</div>
+    </div>
+    <h3>${esc(o.name)}</h3>
+    <div class="oc-org">${esc(o.org||'')}</div>
+    <p class="oc-summary">${esc(o.summary||'')}</p>
+    <div class="oc-meta">
+      <div class="oc-mr"><span class="oc-mk">Deadline</span><span class="oc-mv${o.deadline&&o.deadline.toLowerCase().includes('now')?' mv-soon':''}">${esc(o.deadline||'—')}</span></div>
+      <div class="oc-mr"><span class="oc-mk">App Fee</span><span class="oc-mv${(o.fee||'').toLowerCase().includes('free')?' mv-free':''}">${esc(o.fee||'—')}</span></div>
+      <div class="oc-mr"><span class="oc-mk">Support</span><span class="oc-mv">${esc(o.prize||'—')}</span></div>
+    </div>
+    <div class="oc-status-row">
+      <span class="oc-status-label">Status</span>
+      <select class="oc-status-sel" onchange="updOppStatus(${o.id},this.value)">
+        ${Object.entries(STATUS_META).map(([v,m])=>`<option value="${v}"${o.status===v?' selected':''}>${m.label}</option>`).join('')}
+      </select>
+    </div>
+    <div class="oc-link-row">
+      ${o.url?`<a class="oc-link" href="${esc(o.url)}" target="_blank">Visit Site</a>`:'<span></span>'}
+      <button class="oc-archive-btn" onclick="toggleArchive(${o.id})">${o.archived?'Unarchive':'Archive'}</button>
+    </div>
+  `;
+  return div;
+}
+
+function updOppStatus(id,val){
+  const o=HD.opportunities.find(x=>x.id===id);
+  if(!o)return;
+  o.status=val;
+  saveHubData();
+  const card=document.querySelector(`.opp-card[data-id="${id}"]`);
+  if(card){
+    card.className='opp-card'+(o.archived?' oc-archived':'')+(val==='awarded'?' oc-awarded':'');
+    card.style.setProperty('--oc-accent',o.archived&&val==='not-selected'?'#3a3530':o.accent||'#c4622d');
+  }
+  updOppStats();
+  toast('Status updated','success');
+}
+
+function toggleArchive(id){
+  const o=HD.opportunities.find(x=>x.id===id);
+  if(!o)return;
+  o.archived=!o.archived;
+  if(o.archived&&o.status==='not-started')o.status='not-selected';
+  saveHubData();renderOpps();
+  toast(o.archived?'Archived':'Restored','success');
+}
+
+function filterOpps(btn){
+  document.querySelectorAll('.h-fb[data-hcat]').forEach(b=>b.classList.remove('hf-active'));
+  btn.classList.add('hf-active');
+  const cat=btn.dataset.hcat;
+  document.querySelectorAll('.opp-card').forEach(c=>{
+    const cats=c.dataset.cats||'';
+    const archived=c.classList.contains('oc-archived');
+    if(cat==='all'){c.classList.toggle('oc-hidden',archived);}
+    else if(cat==='archived'){c.classList.toggle('oc-hidden',!archived);}
+    else{c.classList.toggle('oc-hidden',!cats.includes(cat)||archived);}
+  });
+}
+
+function updOppStats(){
+  const opps=HD.opportunities.filter(o=>!o.archived);
+  document.getElementById('opp-count-total').textContent=opps.length;
+  document.getElementById('opp-count-free').textContent=opps.filter(o=>(o.fee||'').toLowerCase().includes('free')).length;
+  document.getElementById('opp-count-progress').textContent=opps.filter(o=>o.status==='in-progress').length;
+  document.getElementById('opp-count-submitted').textContent=opps.filter(o=>o.status==='submitted').length;
+  document.getElementById('opp-count-awarded').textContent=HD.opportunities.filter(o=>o.status==='awarded').length;
+}
+
+function openAddOpp(){document.getElementById('opp-modal').classList.add('open');}
+function closeAddOpp(){document.getElementById('opp-modal').classList.remove('open');document.querySelectorAll('.om-cat').forEach(c=>c.checked=false);}
+function submitAddOpp(){
+  const name=document.getElementById('om-name').value.trim();
+  if(!name){toast('Name is required','error');return;}
+  const cats=Array.from(document.querySelectorAll('.om-cat:checked')).map(c=>c.value).join(' ');
+  const fee=document.getElementById('om-fee').value.trim();
+  const o={
+    id:Date.now(),
+    name,
+    org:document.getElementById('om-org').value.trim(),
+    summary:document.getElementById('om-summary').value.trim(),
+    deadline:document.getElementById('om-deadline').value.trim(),
+    fee,
+    prize:document.getElementById('om-prize').value.trim(),
+    url:document.getElementById('om-url').value.trim(),
+    cats,
+    status:'not-started',
+    archived:false,
+    accent:cats.includes('black')||cats.includes('queer')?'#7b3fa0':cats.includes('grant')?'#c9a84c':cats.includes('residency')?'#4a7c6b':'#c4622d'
+  };
+  HD.opportunities.push(o);
+  saveHubData();renderOpps();closeAddOpp();
+  document.getElementById('om-name').value='';document.getElementById('om-org').value='';document.getElementById('om-summary').value='';document.getElementById('om-deadline').value='';document.getElementById('om-fee').value='';document.getElementById('om-prize').value='';document.getElementById('om-url').value='';
+  toast('Opportunity added!','success');
+}
+
+/* ════════════════════════════════════════
+   MODALS
+════════════════════════════════════════ */
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+// Close modals on bg click
+document.querySelectorAll('.h-modal-bg').forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');}));
 </script>
 
 </body>
